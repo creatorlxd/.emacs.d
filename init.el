@@ -1,4 +1,3 @@
-;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
@@ -51,6 +50,15 @@
  ;; If there is more than one, they won't work right.
  )
 
+;;;org
+(require `org)
+(setq org-src-fontify-natively t)
+
+;;;recentf
+(require `recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+
 ;;;other
 (global-linum-mode t)
 (setq inhibit-splash-screen t)
@@ -65,5 +73,5 @@
 ;;; key bind
 
 (global-set-key (kbd "C-x C-i") `open-init-file) ;open the init file
-
+(global-set-key (kbd "C-x C-r") `recentf-open-files);recent file
 (global-set-key (kbd "C-x /") `open-sr-speedbar) ;speed-bar:show file tree in buffer
