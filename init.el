@@ -1,12 +1,29 @@
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
-; start package.el with emacs                                                                   
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
-(package-initialize)
-
+;;; package manage
+(when (>= emacs-major-version 24)
+  (require `package)
+  (package-initialize)
+  (setq package-archives '(
+    ("melpa-cn" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+    ("gnu" . "http://elpa.gnu.org/packages/")
+    ("melpa" . "http://melpa.milkbox.net/packages/")
+    ))
+  )
+(require `cl)
+(defvar creatorlxd/packages `(
+			      company
+			      hungry-delete
+			      color-theme
+			      ) "Default packages")
+(defun creatorlxd/packages-installed-p ()
+  (loop for pkg in creatorlxd/packages
+	when (not (package-installed-p pkg)) do (return nil)
+	finally (return t)))
+(unless (creatorlxd/packages-installed-p)
+  (message "%s" "Refresh the package database...")
+  (package-refresh-contents)
+  (dolist (pkg creatorlxd/packages)
+    (when (not (package-installed-p pkg))
+      (package-install pkg))))
 ;;;utf-8
 (set-language-environment 'UTF-8)
 (set-locale-environment "UTF-8") 
@@ -20,12 +37,13 @@
 
 ;;;Front Setting
 (set-default-font "Consolas 16")
-;;;Color Theme 
-(add-to-list 'load-path "~/.emacs.d/plugins/color-theme-6.6.0") 
+;;;Color Theme
 (require 'color-theme) 
 (color-theme-initialize)
 (color-theme-gnome2)
-
+;;;hungry-delete
+(require `hungry-delete)
+(global-hungry-delete-mode)
 ;;;open speedbar 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (require 'sr-speedbar) 
@@ -69,6 +87,9 @@
 (global-company-mode t)
 (setq-default cursor-type `bar)
 (setq make-backup-files nil)
+(delete-selection-mode t)
+(setq initial-frame-alist `((fullscreen . maximized)));;full screen
+(add-hook `emacs-lisp-mode-hook `show-paren-mode);;add paren match for elisp mode
 
 ;;; key bind
 
