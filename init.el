@@ -13,9 +13,9 @@
 			      company
 			      hungry-delete
 			      color-theme
-			      smex
 			      swiper
 			      counsel
+			      smartparens
 			      ) "Default packages")
 (setq package-selected-packages creatorlxd/packages)
 (defun creatorlxd/packages-installed-p ()
@@ -68,14 +68,20 @@
 (recentf-mode 1)
 (setq recentf-max-menu-items 25)
 
-;;;smex
-(require `smex)
-(smex-initialize)
+;;;company
+(setq-default company-idle-delay 0.25)
+(setq-default company-minimum-prefix-length 1)
 
 ;;;swiper
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
+
+;;;smartparens
+(require `smartparens-config)
+(add-hook `emacs-lisp-mode `smartparens-mode)
+(add-hook `c-mode `smartparens-mode)
+(add-hook `c++-mode `smartparens-mode)
 
 ;;;other
 (global-linum-mode t)
@@ -91,7 +97,7 @@
 (setq initial-frame-alist `((fullscreen . maximized)));;full screen
 (add-hook `emacs-lisp-mode-hook `show-paren-mode);;add paren match for elisp mode
 
-;;; key bind
+;;;key bind
 
 (global-set-key (kbd "M-x") `smex)  ;for smex
 (global-set-key (kbd "C-x C-i") `open-init-file) ;open the init file
@@ -103,5 +109,5 @@
 (global-set-key (kbd "<f6>") 'ivy-resume)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "<f1> f") 'counsel-describe-function)
-(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "C-h f") 'counsel-describe-function)
+(global-set-key (kbd "C-h v") 'counsel-describe-variable)
