@@ -3,9 +3,9 @@
   (require `package)
   (package-initialize)
   (setq package-archives '(
-    ("melpa-cn" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
     ("gnu" . "http://elpa.gnu.org/packages/")
     ("melpa" . "http://melpa.milkbox.net/packages/")
+    ("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
     ))
   )
 (require `cl)
@@ -13,7 +13,11 @@
 			      company
 			      hungry-delete
 			      color-theme
+			      smex
+			      swiper
+			      counsel
 			      ) "Default packages")
+(setq package-selected-packages creatorlxd/packages)
 (defun creatorlxd/packages-installed-p ()
   (loop for pkg in creatorlxd/packages
 	when (not (package-installed-p pkg)) do (return nil)
@@ -54,19 +58,6 @@
   (interactive)
   (set-frame-width (selected-frame) 150)
   (sr-speedbar-toggle))
-;;; company package
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (company))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
 ;;;org
 (require `org)
@@ -76,6 +67,15 @@
 (require `recentf)
 (recentf-mode 1)
 (setq recentf-max-menu-items 25)
+
+;;;smex
+(require `smex)
+(smex-initialize)
+
+;;;swiper
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq enable-recursive-minibuffers t)
 
 ;;;other
 (global-linum-mode t)
@@ -93,6 +93,15 @@
 
 ;;; key bind
 
+(global-set-key (kbd "M-x") `smex)  ;for smex
 (global-set-key (kbd "C-x C-i") `open-init-file) ;open the init file
 (global-set-key (kbd "C-x C-r") `recentf-open-files);recent file
 (global-set-key (kbd "C-x /") `open-sr-speedbar) ;speed-bar:show file tree in buffer
+;;swiper key bind
+(global-set-key "\C-s" 'swiper)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "<f6>") 'ivy-resume)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
