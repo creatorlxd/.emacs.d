@@ -79,9 +79,7 @@
 
 ;;;smartparens
 (require `smartparens-config)
-(add-hook `emacs-lisp-mode `smartparens-mode)
-(add-hook `c-mode `smartparens-mode)
-(add-hook `c++-mode `smartparens-mode)
+(smartparens-global-mode t)
 
 ;;;other
 (global-linum-mode t)
