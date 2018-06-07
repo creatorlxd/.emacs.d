@@ -16,6 +16,7 @@
 			      swiper
 			      counsel
 			      smartparens
+			      ggtags
 			      ) "Default packages")
 (setq package-selected-packages creatorlxd/packages)
 (defun creatorlxd/packages-installed-p ()
@@ -81,6 +82,13 @@
 (require `smartparens-config)
 (smartparens-global-mode t)
 
+;;;ggtags
+(require `ggtags)
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+              (ggtags-mode 1))))
+
 ;;;other
 (global-linum-mode t)
 (setq inhibit-splash-screen t)
@@ -96,7 +104,6 @@
 (add-hook `emacs-lisp-mode-hook `show-paren-mode);;add paren match for elisp mode
 
 ;;;key bind
-
 (global-set-key (kbd "M-x") `smex)  ;for smex
 (global-set-key (kbd "C-x C-i") `open-init-file) ;open the init file
 (global-set-key (kbd "C-x C-r") `recentf-open-files);recent file
