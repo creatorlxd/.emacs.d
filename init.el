@@ -41,7 +41,7 @@
 (scroll-bar-mode -1)
 
 ;;;Front Setting
-(set-default-font "Consolas 16")
+(set-default-font "Monaco 16")
 ;;;Color Theme
 (require 'color-theme) 
 (color-theme-initialize)
