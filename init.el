@@ -34,10 +34,10 @@
 (set-language-environment 'UTF-8)
 (set-locale-environment "UTF-8") 
 
-;;; close tool-bar
+;;;close tool-bar
 (tool-bar-mode -1)
 
-;;; close-spcroll-bar 
+;;;close-spcroll-bar 
 (scroll-bar-mode -1)
 
 ;;;Front Setting
@@ -89,7 +89,7 @@
             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
               (ggtags-mode 1))))
 
-;;;cc-mode
+;;;creatorlxd-cpp-mode
 (require `cc-mode)
 (setq c-basic-offset 4)
 (setq indent-tabs-mode nil)
@@ -108,6 +108,7 @@
                                    (case-label after)
                                    (label after)
                                    (access-label after)))
+	(c-hanging-semi&comma-criteria . nil)
     (c-cleanup-list             . (scope-operator
                                    empty-defun-braces
                                    defun-close-semi))
