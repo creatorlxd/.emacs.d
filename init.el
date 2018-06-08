@@ -17,6 +17,7 @@
 			      counsel
 			      smartparens
 			      ggtags
+			      cc-mode
 			      ) "Default packages")
 (setq package-selected-packages creatorlxd/packages)
 (defun creatorlxd/packages-installed-p ()
@@ -38,7 +39,6 @@
 
 ;;; close-spcroll-bar 
 (scroll-bar-mode -1)
-
 
 ;;;Front Setting
 (set-default-font "Consolas 16")
@@ -88,6 +88,44 @@
           (lambda ()
             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
               (ggtags-mode 1))))
+
+;;;cc-mode
+(require `cc-mode)
+(setq c-basic-offset 4)
+(setq indent-tabs-mode nil)
+(setq default-tab-width 4)
+(setq tab-width 4)
+(setq tab-stop-list ())
+(loop for x downfrom 40 to 1 do
+      (setq tab-stop-list (cons (* x 4) tab-stop-list)))
+(defconst creatorlxd-cpp-style
+  '((c-tab-always-indent . 4)
+	(c-comment-only-line-offset . 4)
+    (c-hanging-braces-alist     . ((substatement-open after)
+                                   (brace-list-open)))
+    (c-hanging-colons-alist     . ((member-init-intro before)
+                                   (inher-intro)
+                                   (case-label after)
+                                   (label after)
+                                   (access-label after)))
+    (c-cleanup-list             . (scope-operator
+                                   empty-defun-braces
+                                   defun-close-semi))
+    (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
+                                   (substatement-open . 0)
+                                   (case-label        . 4)
+                                   (block-open        . 0)
+                                   (knr-argdecl-intro . -)))
+    (c-echo-syntactic-information-p . t)
+    )
+  "creatorlxd's C++ Programming Style")
+(setq c-offsets-alist '((member-init-intro . ++)))
+(defun creatorlxd-cpp-mode-common-hook ()
+  (c-add-style "creatorlxd-cpp-style" creatorlxd-cpp-style t)
+  (c-toggle-auto-hungry-state 1)
+  (define-key c-mode-base-map "/C-m" 'c-context-line-break)
+  )
+(add-hook 'c-mode-common-hook 'creatorlxd-cpp-mode-common-hook)
 
 ;;;other
 (global-linum-mode t)
