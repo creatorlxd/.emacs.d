@@ -4,8 +4,7 @@
   (package-initialize)
   (setq package-archives '(
     ("gnu" . "http://elpa.gnu.org/packages/")
-    ("melpa" . "http://melpa.milkbox.net/packages/")
-    ("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+    ("melpa" . "http://elpa.emacs-china.org/melpa/")
     ))
   )
 (require `cl)
@@ -18,6 +17,7 @@
 			      smartparens
 			      ggtags
 			      cc-mode
+			      exec-path-from-shell
 			      ) "Default packages")
 (setq package-selected-packages creatorlxd/packages)
 (defun creatorlxd/packages-installed-p ()
@@ -30,6 +30,11 @@
   (dolist (pkg creatorlxd/packages)
     (when (not (package-installed-p pkg))
       (package-install pkg))))
+
+;;;exec-path-from-shell for mac
+(when (memq window-system `(mac ns))
+  (exec-path-from-shell-initialize))
+
 ;;;utf-8
 (set-language-environment 'UTF-8)
 (set-locale-environment "UTF-8") 
@@ -143,7 +148,6 @@
 (add-hook `emacs-lisp-mode-hook `show-paren-mode);;add paren match for elisp mode
 
 ;;;key bind
-(global-set-key (kbd "M-x") `smex)  ;for smex
 (global-set-key (kbd "C-x C-i") `open-init-file) ;open the init file
 (global-set-key (kbd "C-x C-r") `recentf-open-files);recent file
 (global-set-key (kbd "C-x /") `open-sr-speedbar) ;speed-bar:show file tree in buffer
