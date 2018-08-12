@@ -4,8 +4,7 @@
   (package-initialize)
   (setq package-archives '(
     ("gnu" . "http://elpa.gnu.org/packages/")
-    ("melpa" . "http://melpa.milkbox.net/packages/")
-    ("melpa-cn" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+    ("melpa" . "http://elpa.emacs-china.org/melpa/")
     ))
   )
 (require `cl)
@@ -89,7 +88,7 @@
 (add-hook 'c-mode-common-hook
           (lambda ()
             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
-              (ggtags-mode t))))
+              (ggtags-mode 1))))
 
 ;;;popwin
 (require `popwin)
@@ -130,7 +129,7 @@
 (defun creatorlxd-cpp-mode-common-hook ()
   (c-add-style "creatorlxd-cpp-style" creatorlxd-cpp-style t)
   (c-toggle-auto-hungry-state 1)
-  (define-key c-mode-base-map "/C-m" 'c-context-line-break)
+  (define-key c-mode-base-map (kbd "C-m") 'c-context-line-break)
   )
 (add-hook 'c-mode-common-hook 'creatorlxd-cpp-mode-common-hook)
 
@@ -154,7 +153,6 @@
 (add-hook `emacs-lisp-mode-hook `show-paren-mode);;add paren match for elisp mode
 
 ;;;key bind
-(global-set-key (kbd "M-x") `smex)  ;for smex
 (global-set-key (kbd "C-x C-i") `open-init-file) ;open the init file
 (global-set-key (kbd "C-x C-r") `recentf-open-files);recent file
 (global-set-key (kbd "C-x /") `open-sr-speedbar) ;speed-bar:show file tree in buffer
