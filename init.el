@@ -18,6 +18,8 @@
 			      smartparens
 			      ggtags
 			      cc-mode
+			      popwin
+			      exec-path-from-shell
 			      ) "Default packages")
 (setq package-selected-packages creatorlxd/packages)
 (defun creatorlxd/packages-installed-p ()
@@ -87,7 +89,11 @@
 (add-hook 'c-mode-common-hook
           (lambda ()
             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
-              (ggtags-mode 1))))
+              (ggtags-mode t))))
+
+;;;popwin
+(require `popwin)
+(popwin-mode t)
 
 ;;;creatorlxd-cpp-mode
 (require `cc-mode)
@@ -129,6 +135,10 @@
 (add-hook 'c-mode-common-hook 'creatorlxd-cpp-mode-common-hook)
 
 ;;;other
+;;(when (memq window-system `(mac ns))
+;;  (exec-path-from-shell-initialize))
+(exec-path-from-shell-initialize);in mac os just use exec...
+(global-auto-revert-mode t)
 (global-linum-mode t)
 (setq inhibit-splash-screen t)
 (defun open-init-file()
@@ -138,6 +148,7 @@
 (global-company-mode t)
 (setq-default cursor-type `bar)
 (setq make-backup-files nil)
+(setq auto-save-default nil)
 (delete-selection-mode t)
 (setq initial-frame-alist `((fullscreen . maximized)));;full screen
 (add-hook `emacs-lisp-mode-hook `show-paren-mode);;add paren match for elisp mode
@@ -147,6 +158,9 @@
 (global-set-key (kbd "C-x C-i") `open-init-file) ;open the init file
 (global-set-key (kbd "C-x C-r") `recentf-open-files);recent file
 (global-set-key (kbd "C-x /") `open-sr-speedbar) ;speed-bar:show file tree in buffer
+(global-set-key (kbd "C-h C-f") `find-function)
+(global-set-key (kbd "C-h C-v") `find-variable)
+(global-set-key (kbd "C-h C-k") `find-function-on-key)
 ;;swiper key bind
 (global-set-key "\C-s" 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
