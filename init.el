@@ -134,9 +134,8 @@
 (add-hook 'c-mode-common-hook 'creatorlxd-cpp-mode-common-hook)
 
 ;;;other
-;;(when (memq window-system `(mac ns))
-;;  (exec-path-from-shell-initialize))
-(exec-path-from-shell-initialize);in mac os just use exec...
+(when (equal system-type `darwin)
+  (exec-path-from-shell-initialize))
 (global-auto-revert-mode t)
 (global-linum-mode t)
 (setq inhibit-splash-screen t)
