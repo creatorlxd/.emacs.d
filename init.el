@@ -97,8 +97,8 @@
 ;;;creatorlxd-cpp-mode
 (require `cc-mode)
 (setq c-basic-offset 4)
-(setq indent-tabs-mode nil)
-(setq default-tab-width 4)
+(setq indent-tabs-mode t)
+(setq-default tab-width 4)
 (setq tab-width 4)
 (setq tab-stop-list ())
 (loop for x downfrom 40 to 1 do
