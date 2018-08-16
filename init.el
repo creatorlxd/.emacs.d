@@ -111,7 +111,7 @@
     (c-hanging-colons-alist     . ((member-init-intro before)
                                    (inher-intro)
                                    (case-label after)
-                                   (label after)
+                                   (label . 0)
                                    (access-label after)))
 	(c-hanging-semi&comma-criteria . nil)
     (c-cleanup-list             . (scope-operator
