@@ -56,9 +56,9 @@
 (setq speedbar-show-unknown-files t)
 (setq sr-speedbar-width 20) 
 (setq sr-speedbar-right-side nil)
+(setq sr-speedbar-auto-refresh t)
 (defun open-sr-speedbar()
   (interactive)
-  (set-frame-width (selected-frame) 150)
   (sr-speedbar-toggle))
 
 ;;;org
