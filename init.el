@@ -82,6 +82,7 @@
 ;;;smartparens
 (require `smartparens-config)
 (smartparens-global-mode t)
+(setq sp-escape-quotes-after-insert nil)
 
 ;;;ggtags
 (require `ggtags)
