@@ -4,7 +4,8 @@
   (package-initialize)
   (setq package-archives '(
     ("gnu" . "http://elpa.gnu.org/packages/")
-    ("melpa" . "http://elpa.emacs-china.org/melpa/")
+    ("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
+	("melpa" . "https://melpa.org/packages/")
     ))
   )
 (require `cl)
@@ -19,6 +20,10 @@
 			      cc-mode
 			      popwin
 			      exec-path-from-shell
+				  racer
+				  flycheck
+				  flycheck-rust
+				  rust-mode
 			      ) "Default packages")
 (setq package-selected-packages creatorlxd/packages)
 (defun creatorlxd/packages-installed-p ()
@@ -133,6 +138,17 @@
   (define-key c-mode-base-map (kbd "C-m") 'c-context-line-break)
   )
 (add-hook 'c-mode-common-hook 'creatorlxd-cpp-mode-common-hook)
+
+;;;flycheck
+(global-flycheck-mode t)
+
+;;;rust racer
+(add-hook 'rust-mode-hook #'racer-mode)
+(add-hook 'racer-mode-hook #'eldoc-mode)
+(add-hook 'racer-mode-hook #'company-mode)
+(require 'rust-mode)
+(define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
+(setq company-tooltip-align-annotations t)
 
 ;;;other
 (when (equal system-type `darwin)
