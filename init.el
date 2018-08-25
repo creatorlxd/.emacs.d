@@ -1,6 +1,6 @@
 ;;; package manage
 (when (>= emacs-major-version 24)
-  (require `package)
+  (require 'package)
   (package-initialize)
   (setq package-archives '(
     ("gnu" . "http://elpa.gnu.org/packages/")
@@ -8,8 +8,8 @@
 	("melpa" . "https://melpa.org/packages/")
     ))
   )
-(require `cl)
-(defvar creatorlxd/packages `(
+(require 'cl)
+(defvar creatorlxd/packages '(
 			      company
 			      hungry-delete
 			      color-theme
@@ -53,7 +53,7 @@
 (color-theme-initialize)
 (color-theme-gnome2)
 ;;;hungry-delete
-(require `hungry-delete)
+(require 'hungry-delete)
 (global-hungry-delete-mode)
 ;;;open speedbar 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
@@ -67,11 +67,11 @@
   (sr-speedbar-toggle))
 
 ;;;org
-(require `org)
+(require 'org)
 (setq org-src-fontify-natively t)
 
 ;;;recentf
-(require `recentf)
+(require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-menu-items 25)
 
@@ -85,23 +85,23 @@
 (setq enable-recursive-minibuffers t)
 
 ;;;smartparens
-(require `smartparens-config)
+(require 'smartparens-config)
 (smartparens-global-mode t)
 (setq sp-escape-quotes-after-insert nil)
 
 ;;;ggtags
-(require `ggtags)
+(require 'ggtags)
 (add-hook 'c-mode-common-hook
           (lambda ()
             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
               (ggtags-mode 1))))
 
 ;;;popwin
-(require `popwin)
+(require 'popwin)
 (popwin-mode t)
 
 ;;;creatorlxd-cpp-mode
-(require `cc-mode)
+(require 'cc-mode)
 (setq c-basic-offset 4)
 (setq indent-tabs-mode t)
 (setq-default tab-width 4)
@@ -142,16 +142,21 @@
 ;;;flycheck
 (global-flycheck-mode t)
 
-;;;rust racer
+;;;rust
 (add-hook 'rust-mode-hook #'racer-mode)
 (add-hook 'racer-mode-hook #'eldoc-mode)
 (add-hook 'racer-mode-hook #'company-mode)
 (require 'rust-mode)
 (define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
 (setq company-tooltip-align-annotations t)
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+(add-hook 'rust-mode-hook
+		  '(lambda ()
+			 (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
+			 ))
 
 ;;;other
-(when (equal system-type `darwin)
+(when (equal system-type 'darwin)
   (exec-path-from-shell-initialize))
 (global-auto-revert-mode t)
 (global-linum-mode t)
@@ -161,20 +166,20 @@
   (find-file "~/.emacs.d/init.el")
   )
 (global-company-mode t)
-(setq-default cursor-type `bar)
+(setq-default cursor-type 'bar)
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (delete-selection-mode t)
-(setq initial-frame-alist `((fullscreen . maximized)));;full screen
-(add-hook `emacs-lisp-mode-hook `show-paren-mode);;add paren match for elisp mode
+(setq initial-frame-alist '((fullscreen . maximized)));;full screen
+(add-hook 'emacs-lisp-mode-hook 'show-paren-mode);;add paren match for elisp mode
 
 ;;;key bind
-(global-set-key (kbd "C-x C-i") `open-init-file) ;open the init file
-(global-set-key (kbd "C-x C-r") `recentf-open-files);recent file
-(global-set-key (kbd "C-x /") `open-sr-speedbar) ;speed-bar:show file tree in buffer
-(global-set-key (kbd "C-h C-f") `find-function)
-(global-set-key (kbd "C-h C-v") `find-variable)
-(global-set-key (kbd "C-h C-k") `find-function-on-key)
+(global-set-key (kbd "C-x C-i") 'open-init-file) ;open the init file
+(global-set-key (kbd "C-x C-r") 'recentf-open-files);recent file
+(global-set-key (kbd "C-x /") 'open-sr-speedbar) ;speed-bar:show file tree in buffer
+(global-set-key (kbd "C-h C-f") 'find-function)
+(global-set-key (kbd "C-h C-v") 'find-variable)
+(global-set-key (kbd "C-h C-k") 'find-function-on-key)
 ;;swiper key bind
 (global-set-key "\C-s" 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
